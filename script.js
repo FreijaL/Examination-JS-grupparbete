@@ -24,7 +24,14 @@
 //   - vid varje rätt gissning ska bokstav pushas till listan med rätt gissade + bokstav till ordet (på rätt ställe)
 //   - eventListener på tangenterna (alt knappar)
 // 3 - 
-// 4 - 
+/* 4 -
+- skapar en funktion som startar spelet och hämtar ett ord från listan words och lägger den i "currentWord"
+- lyssna efter tryck på tangentbordet
+- vid tryck - jämför bokstav(tryck) med nuvarande ord "currentWord"
+- vid rätt gissning ska bokstaven pushas till listan med rätt gissade + tas bort från alfabetet 
+- + bokstaven ska sättas på rätt plats (+ "felmeddelande" på redan tryckta bokstäver)
+- vid fel gissning ska bokstaven pushas till lstan med fel gissade "wrongLetterGuess" + tas bort från alfabetet
+*/
 
 let imgScaffold = document.querySelector('figure').classList.add('scaffold');
 let imgHead = document.querySelector('figure').classList.add('head');
@@ -32,5 +39,9 @@ let imgBody = document.querySelector('figure').classList.add('body');
 let imgArms = document.querySelector('figure').classList.add('arms');
 let imgLegs = document.querySelector('figure').classList.add('legs');
 
+let words = ['Adam', 'Kamala', 'Freija'];
+let currentWord = '';
+let correctLetterGuess = [];
+let wrongLetterGuess = [];
 
-
+console.log(currentWord)
