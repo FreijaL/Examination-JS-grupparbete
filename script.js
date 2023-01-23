@@ -13,6 +13,9 @@
 // 3 - Abstraction ------------ abstrahera en lösning för att passa olika senarion
 // 4 - Algorithm design ------- steg för steg instruktioner
 
+
+
+// Hej hej från Kamala
 // 1 - lista med alfabetet (ta bort för varje gissningar)
 //   - lista med rätt gissade bokstäver
 //   - lista med fel gissade bokstäver
