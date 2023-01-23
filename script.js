@@ -30,13 +30,25 @@
 - skapar en funktion som startar spelet och hämtar ett ord från listan words och lägger den i "currentWord"
 - lyssna efter tryck på tangentbordet
 - vid tryck - jämför bokstav(tryck) med nuvarande ord "currentWord"
-- if - vid rätt gissning ska bokstaven pushas till listan med rätt gissade 
+- if - villkor: vid rätt gissning ska bokstaven ska finnas i currentWord och finnas i alfabetet
+    + ska bokstaven pushas till listan med rätt gissade 
     + tas bort från alfabetet 
     + bokstaven ska sättas på rätt plats 
     (+ "felmeddelande" på redan tryckta bokstäver)
-- else - vid fel gissning ska bokstaven pushas till listan med fel gissade "wrongLetterGuess" 
-    + tas bort från alfabetet
-- else / om bokstaven inte finns - felmeddelande (testa ny bokstav)
+    + När correctLetterGuess är === currentWord ska spelet sluta och section class="you-won" visas. 
+    + (För VG: eventuellt lägga till poängräknare)
+- else if - villkor: Bokstaven i alfabetet men finns inte i currentWord 
+    + vid fel gissning ska bokstaven pushas till listan med fel gissade "wrongLetterGuess" och visas i class="nomatch"
+    + tas bort från alfabetet för att inte kunna gissas igen. Ska ej kunna vara klickbar.
+    + Opacity 1 += läggs till på gubben(SVGn) med en loop
+    + Spelets slut, alternativ 1: 
+        -när sista opacityn är satt på "imgLegs" ska spelet sluta. Ska visas i section class"game-over"
+            + Spelet slut, alternativ 2:
+        - när wrongLetterGuess är satt till 5 bokstäver ska spelet sluta. Ska visas i section class"game-over"
+    + (För VG: eventuellt lägga till poängräknare)
+
+- else - villkor: Om bokstaven inte finns i letterOptions
+-  lägg till ett felmeddelande (testa ny bokstav)
 - 
 -
 
@@ -48,10 +60,38 @@ let imgBody = document.querySelector('figure').classList.add('body');
 let imgArms = document.querySelector('figure').classList.add('arms');
 let imgLegs = document.querySelector('figure').classList.add('legs');
 
-let letters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","å","ä","ö"];
-let words = ['Adam', 'Kamala', 'Freija'];
-let currentWord = '';
+let lettersOptions = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","å","ä","ö"];
+let words = ['adam', 'kamala', 'freija'];
+let currentWord = [];
 let correctLetterGuess = [];
 let wrongLetterGuess = [];
 
-console.log(currentWord)
+
+//skapar en funktion som startar spelet och hämtar ett ord från listan words och lägger den i "currentWord"
+
+
+function startGame() {
+   
+    let randomWord = Math.floor(Math.random() * words.length);
+    currentWord.push(words[randomWord]);
+    
+}
+startGame()
+console.log(currentWord);
+
+
+//lyssna efter tryck på tangentbordet
+
+let keyBoard = document.querySelector('body')
+keyBoard.addEventListener('keypress', fetchkey => {
+//- vid tryck - jämför bokstav(tryck) med nuvarande ord "currentWord"
+
+    if (currentWord.includes(fetchkey.key) == true) {
+        console.log('WORK');
+    } else {
+        console.log('NOT WORK');
+    }
+
+});
+
+
