@@ -55,3 +55,6 @@ let correctLetterGuess = [];
 let wrongLetterGuess = [];
 
 console.log(currentWord)
+
+
+//hejhej
