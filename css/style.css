@@ -25,12 +25,12 @@ main figure svg > * {
     opacity: 0;
 }
 
-main figure svg #ground             { opacity: 1; }
-main figure.scaffold svg #scaffold  { opacity: 1; }
-main figure.head     svg #head      { opacity: 1; }
-main figure.body     svg #body      { opacity: 1; }
-main figure.arms     svg #arms      { opacity: 1; }
-main figure.legs     svg #legs      { opacity: 1; }
+main figure svg #ground             { opacity: 0; }
+main figure.scaffold svg #scaffold  { opacity: 0; }
+main figure.head     svg #head      { opacity: 0; }
+main figure.body     svg #body      { opacity: 0; }
+main figure.arms     svg #arms      { opacity: 0; }
+main figure.legs     svg #legs      { opacity: 0; }
 
 footer {
     display: flex;

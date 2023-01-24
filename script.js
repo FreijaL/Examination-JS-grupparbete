@@ -5,7 +5,7 @@
  document.querySelector('figure').classList.add('body')
  document.querySelector('figure').classList.add('arms')
  document.querySelector('figure').classList.add('legs')
-*/
+
 
 
 // 1 - Decomposition ---------- bryta ner det stora till mindre delar
@@ -49,24 +49,29 @@
 
 - else - villkor: Om bokstaven inte finns i letterOptions
 -  lägg till ett felmeddelande (testa ny bokstav)
-- 
--
 
 */
+//FRÅGA TILL MAJA:  SKA VI ANVÄNDA "FIGURE" queryselectior
+let imgGround = document.querySelector('#ground');
+let imgScaffold = document.querySelector('#scaffold');
+let imgHead = document.querySelector('#head');
+let imgBody = document.querySelector('#body');
+let imgArms = document.querySelector('#arms');
+let imgLegs = document.querySelector('#legs');
 
-let imgScaffold = document.querySelector('figure').classList.add('scaffold');
-let imgHead = document.querySelector('figure').classList.add('head');
-let imgBody = document.querySelector('figure').classList.add('body');
-let imgArms = document.querySelector('figure').classList.add('arms');
-let imgLegs = document.querySelector('figure').classList.add('legs');
+let imgOpacity = [imgGround, imgScaffold, imgHead, imgBody, imgArms, imgLegs];
 
 let lettersOptions = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","å","ä","ö"];
 let words = ['adam', 'kamala', 'freija'];
 let currentWord = [];
-let correctLetterGuess = [];
+let correctLetters = '';
 
 let correctWord = document.querySelector('.word');
-let correctLetters = '';
+let correctLetterGuess = [];
+
+let wrongGuess = document.querySelector('.nomatch');
+let wrongLetterGuess = [];
+
 //skapar en funktion som startar spelet och hämtar ett ord från listan words och lägger den i "currentWord"
 
 
@@ -79,13 +84,20 @@ function startGame() {
     correctLetters = currentWord.toString().split('');
     console.log(correctLetters);
 
-    // när vi fått ett random ord ska det skapas li i ul('word') = antal bokstäver i ordet
+
+    // när vi fått ett random ord ska det skapas li i ul('word')
+    // = antal bokstäver i ordet
     
     for (let i = 0; i < correctLetters.length; i++){
-        var listEl = document.createElement('li');
-        listEl.innerHTML = '';
-        correctWord.appendChild(listEl);
-        console.log(listEl);
+        var wordListEl = document.createElement('li');
+        wordListEl.innerHTML = '';
+        correctWord.appendChild(wordListEl);
+        console.log(wordListEl);
+
+        var noMatchListEl = document.createElement('li');
+        noMatchListEl.innerHTML = '';
+        wrongGuess.appendChild(noMatchListEl);
+        console.log(noMatchListEl);
     }
 
     //lyssna efter tryck på tangentbordet
@@ -94,23 +106,35 @@ function startGame() {
 
     //- vid tryck - jämför bokstav(tryck) med nuvarande ord "currentWord"
     
+
     for (let index = 0; index < correctLetters.length; index++) {
-        if (correctLetters.includes(fetchkey.key) == true) {
+        //Fråga till MAJA: Hur får vi rätt index att hamna på rätt <li>?
+        if (correctLetters.includes(fetchkey.key) === true) {
             console.log('WORK');
-            listEl.innerHTML = fetchkey.key; 
+            wordListEl.innerHTML = fetchkey.key; 
         } else {
+        //FRÅGA TILL MAJA: Hur får vi alla index att hamna i "nomatch"?
             console.log('NOT WORK');
+            wrongLetterGuess.push(fetchkey.key);
+            wrongGuess.innerHTML = fetchkey.key; 
+            console.log(wrongLetterGuess);
+
+        //FRÅGA TILL MAJA: Hur får vi en bild att visas per felaktigt tryck. 
+            for (let img = 0; img < imgOpacity.length; img++) {
+                imgOpacity[0].style.opacity = 1;
+            }
+          
         }
     }
-
+    
     });
-    console.log(correctLetters.indexOf('m'));
+
+ //Går inte att placera bokstäverna på rätt plats i ordet. Allt hamnar på sista rutan. 
+    //console.log(correctLetters.indexOf('m'));
     
 }
 startGame()
 console.log(currentWord);
-
-
 
 
 
