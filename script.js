@@ -64,29 +64,42 @@ let lettersOptions = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o
 let words = ['adam', 'kamala', 'freija'];
 let currentWord = [];
 let correctLetterGuess = [];
-let wrongLetterGuess = [];
 
-
+let correctWord = document.querySelector('.word');
+let currentLetters = '';
 //skapar en funktion som startar spelet och hämtar ett ord från listan words och lägger den i "currentWord"
-
-
 function startGame() {
    
     let randomWord = Math.floor(Math.random() * words.length);
     currentWord.push(words[randomWord]);
-    
+
+
+    currentLetters = currentWord.toString();
+    console.log(currentLetters);
+    // när vi fått ett random ord ska det skapas li i ul('word') = antal bokstäver i ordet
+    currentWord.forEach (letter => {
+        let listEl = document.createElement('li');
+        listEl.innerHTML = '';
+        currentWord.appendChild(listEl);
+        console.log(letter);
+    });
+
+
 }
 startGame()
 console.log(currentWord);
 
+// gör currentWord till sträng så att vi kan leta fram specifik bokstav senare
+// let currentLetters = currentWord.toString();
+// console.log(currentLetters);
+
 
 //lyssna efter tryck på tangentbordet
-
 let keyBoard = document.querySelector('body')
 keyBoard.addEventListener('keypress', fetchkey => {
-//- vid tryck - jämför bokstav(tryck) med nuvarande ord "currentWord"
 
-    if (currentWord.includes(fetchkey.key) == true) {
+//- vid tryck - jämför bokstav(tryck) med nuvarande ord "currentWord"
+    if (currentLetters.includes(fetchkey.key) == true) {
         console.log('WORK');
     } else {
         console.log('NOT WORK');
@@ -94,5 +107,3 @@ keyBoard.addEventListener('keypress', fetchkey => {
 
 });
 
-
-//hej
