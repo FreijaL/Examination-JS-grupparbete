@@ -66,44 +66,58 @@ let currentWord = [];
 let correctLetterGuess = [];
 
 let correctWord = document.querySelector('.word');
-let currentLetters = '';
+let correctLetters = '';
 //skapar en funktion som startar spelet och hämtar ett ord från listan words och lägger den i "currentWord"
+
+
+
 function startGame() {
    
     let randomWord = Math.floor(Math.random() * words.length);
     currentWord.push(words[randomWord]);
 
+    correctLetters = currentWord.toString().split('');
+    console.log(correctLetters);
 
-    currentLetters = currentWord.toString();
-    console.log(currentLetters);
     // när vi fått ett random ord ska det skapas li i ul('word') = antal bokstäver i ordet
-    currentWord.forEach (letter => {
-        let listEl = document.createElement('li');
+    
+    for (let i = 0; i < correctLetters.length; i++){
+        var listEl = document.createElement('li');
         listEl.innerHTML = '';
-        currentWord.appendChild(listEl);
-        console.log(letter);
+        correctWord.appendChild(listEl);
+        console.log(listEl);
+    }
+
+    //lyssna efter tryck på tangentbordet
+    let keyBoard = document.querySelector('body')
+    keyBoard.addEventListener('keypress', fetchkey => {
+
+    //- vid tryck - jämför bokstav(tryck) med nuvarande ord "currentWord"
+    
+    for (let index = 0; index < correctLetters.length; index++) {
+        if (correctLetters.includes(fetchkey.key) == true) {
+            console.log('WORK');
+            listEl.innerHTML = fetchkey.key; 
+        } else {
+            console.log('NOT WORK');
+        }
+    }
+
     });
-
-
+    console.log(correctLetters.indexOf('m'));
+    
 }
 startGame()
 console.log(currentWord);
+
+
+
+
+
 
 // gör currentWord till sträng så att vi kan leta fram specifik bokstav senare
 // let currentLetters = currentWord.toString();
 // console.log(currentLetters);
 
 
-//lyssna efter tryck på tangentbordet
-let keyBoard = document.querySelector('body')
-keyBoard.addEventListener('keypress', fetchkey => {
-
-//- vid tryck - jämför bokstav(tryck) med nuvarande ord "currentWord"
-    if (currentLetters.includes(fetchkey.key) == true) {
-        console.log('WORK');
-    } else {
-        console.log('NOT WORK');
-    }
-
-});
 
