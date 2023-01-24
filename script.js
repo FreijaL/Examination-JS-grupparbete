@@ -103,7 +103,7 @@ function startGame() {
     //lyssna efter tryck på tangentbordet
     let keyBoard = document.querySelector('body')
     keyBoard.addEventListener('keypress', fetchkey => {
-
+        var fetchKey = fetchkey.key;
     //- vid tryck - jämför bokstav(tryck) med nuvarande ord "currentWord"
     
 
@@ -115,8 +115,7 @@ function startGame() {
         } else {
         //FRÅGA TILL MAJA: Hur får vi alla index att hamna i "nomatch"?
             console.log('NOT WORK');
-            wrongLetterGuess.push(fetchkey.key);
-            wrongGuess.innerHTML = fetchkey.key; 
+            wrongGuess.textContent = fetchkey.key; 
             console.log(wrongLetterGuess);
 
         //FRÅGA TILL MAJA: Hur får vi en bild att visas per felaktigt tryck. 
@@ -125,19 +124,28 @@ function startGame() {
             }
           
         }
+
     }
-    
+
     });
 
  //Går inte att placera bokstäverna på rätt plats i ordet. Allt hamnar på sista rutan. 
     //console.log(correctLetters.indexOf('m'));
-    
+
 }
 startGame()
 console.log(currentWord);
 
 
-
+//FRÅGA MAJA: Är det värt att använda denna funktion för att få in bokstaven i arrayen "wrongLetterGuess"
+///function newLetter() {
+///    let letter = fetchKey;
+///    wrongLetterGuess.push(letter);
+///    wrongLetterGuess += letter;
+///    console.log(wrongLetterGuess);
+///
+///}
+///newLetter()
 
 // gör currentWord till sträng så att vi kan leta fram specifik bokstav senare
 // let currentLetters = currentWord.toString();
