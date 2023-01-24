@@ -86,12 +86,19 @@ let keyBoard = document.querySelector('body')
 keyBoard.addEventListener('keypress', fetchkey => {
 //- vid tryck - jämför bokstav(tryck) med nuvarande ord "currentWord"
 
-    if (currentWord.includes(fetchkey.key) == true) {
-        console.log('WORK');
-    } else {
-        console.log('NOT WORK');
-    }
+
+
+//    if (currentWord.includes(fetchkey.key) === true) {
+//        console.log('WORK');
+//    } else {
+//        console.log('NOT WORK');
+//    }
 
 });
 
 
+if ('adam' in words) {
+    console.log('WORK');
+} else {
+    console.log('NOT WORK');
+}
