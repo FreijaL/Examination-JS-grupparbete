@@ -102,67 +102,47 @@ function startGame() {
         correctWordElem.appendChild(wordListEl);
         // console.log(wordListEl);
     }
-
     //lyssna efter tryck på tangentbordet
     let keyBoard = document.querySelector('body')
     keyBoard.addEventListener('keypress', fetchkey => {
         var fetchKey = fetchkey.key;
-
-        //- vid tryck - jämför bokstav(tryck) med nuvarande ord "correctWord"
-        // for (let index = 0; index < correctLetters.length; index++) {
-        //FRÅGA TILL MAJA: Hur får vi rätt index att hamna på rätt <li>?
+        // vid tryck - kollar om gissningen (trycket av en bokstav) finns i korrekt ord ("correctLetters")
         if (correctLetters.includes(fetchKey)) {
-            // loop som loopar igenom ordet en gång (för varje gång du gissar rätt)
+            // loopar igenom korrekt ord ("correctLetters") en gång för varje rätt gissning
             for (let i = 0; i < correctLetters.length; i++) {
-
+                //jämför om gissningen stämmer överens med något av bokstavens index i "correctLetters"
                 if (correctLetters[i] === fetchKey) {
-                    //gör om innehållet i HTML-ul (alla li) till en array så att vi kommer åt bokstavens index 
+                    // om gissningen stämmer läggs bokstaven in i rätt <li>-element
                     let listElem = document.querySelectorAll("li");
                     listElem[i].innerHTML = fetchKey;
                     console.log(fetchKey);
                 }
             }
-            // console.log('WORK');
         } else {
-            //FRÅGA TILL MAJA: Hur får vi alla index att hamna i "nomatch"?
-            // console.log('NOT WORK');
+            // vid fel gissning läggs den bokstaven in i ett <li>-element i ul class=nomatch
             wrongGuessesElem.textContent += fetchKey;
-            console.log(wrongLetterGuess);
             wrongLetterGuess.push(fetchKey);
 
-            // för varje fel gissad bokstav skapas lika många <li> - "noMatchListEl" i ul('nomatch') - "wrongGuessesElem"
-            // var noMatchListEl = document.createElement('li');
-            // noMatchListEl.innerHTML = "";
-            // wrongGuessesElem.appendChild(noMatchListEl);
-            // noMatchListEl += fetchKey; - behövs?
-            // console.log(noMatchListEl);
-
-            //FRÅGA TILL MAJA: Hur får vi en bild att visas per felaktigt tryck. 
-            //switch för varje del av SVG
+            // för varje fel gissning visas en del av gubben och vid den femte fel-gissningen visas section class=game-over
             if (wrongLetterGuess.length === 1) {
                 document.querySelector('figure').classList.add('scaffold')
-            }
-            for (let img = 0; img < imgOpacity.length; img++) {
-                imgOpacity[0].style.opacity = 1;
+            } else if (wrongLetterGuess.length === 2) {
+                document.querySelector('figure').classList.add('head')
+            } else if (wrongLetterGuess.length === 3) {
+                document.querySelector('figure').classList.add('body')
+            } else if (wrongLetterGuess.length === 4) {
+                document.querySelector('figure').classList.add('arms')
+            } else if (wrongLetterGuess.length === 5) {
+                document.querySelector('figure').classList.add('legs')
+                let gameOverElem = document.querySelector('.game-over');
+                gameOverElem.style.display = "block";
+                console.log("game over");
             }
         }
-        // }
     });
-    //FRÅGA TILL MAJA: Går inte att placera bokstäverna på rätt plats i ordet. Allt hamnar på sista rutan. 
 }
-//FRÅGA TILL MAJA: Är det värt att använda denna funktion för att få in bokstaven i arrayen "wrongLetterGuess"
-///function newLetter() {
-///    let letter = fetchKey;
-///    wrongLetterGuess.push(letter);
-///    wrongLetterGuess += letter;
-///    console.log(wrongLetterGuess);
-///
-///}
-///newLetter()
 
 
 //Spelets huvudfunktion körs
 startGame()
-//Här testar vi att det funkar...
-console.log(correctWord);
 
