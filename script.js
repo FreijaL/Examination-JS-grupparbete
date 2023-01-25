@@ -41,10 +41,9 @@
     + vid fel gissning ska bokstaven pushas till listan med fel gissade "wrongLetterGuess" och visas i class="nomatch"
     + tas bort från alfabetet för att inte kunna gissas igen. Ska ej kunna vara klickbar.
     + Opacity 1 += läggs till på gubben(SVGn) med en loop
-    + Spelets slut, alternativ 1: 
-        -när sista opacityn är satt på "imgLegs" ska spelet sluta. Ska visas i section class"game-over"
-            + Spelet slut, alternativ 2:
+    + Spelets slut
         - när wrongLetterGuess är satt till 5 bokstäver ska spelet sluta. Ska visas i section class"game-over"
+        - när correctLetterGuess === correctWord då vinner man
     + (För VG: eventuellt lägga till poängräknare)
 
 - else - villkor: Om bokstaven inte finns i letterOptions
@@ -101,7 +100,7 @@ function startGame() {
         var wordListEl = document.createElement('li');
         wordListEl.innerHTML = '';
         correctWordElem.appendChild(wordListEl);
-        console.log(wordListEl);
+        // console.log(wordListEl);
     }
 
     //lyssna efter tryck på tangentbordet
@@ -110,30 +109,44 @@ function startGame() {
         var fetchKey = fetchkey.key;
 
         //- vid tryck - jämför bokstav(tryck) med nuvarande ord "correctWord"
-        for (let index = 0; index < correctLetters.length; index++) {
-            //FRÅGA TILL MAJA: Hur får vi rätt index att hamna på rätt <li>?
-            if (correctLetters.includes(fetchKey) === true) {
-                console.log('WORK');
-                wordListEl.innerHTML = fetchKey;
-            } else {
-                //FRÅGA TILL MAJA: Hur får vi alla index att hamna i "nomatch"?
-                console.log('NOT WORK');
-                wrongGuessesElem.textContent = fetchKey;
-                console.log(wrongLetterGuess);
+        // for (let index = 0; index < correctLetters.length; index++) {
+        //FRÅGA TILL MAJA: Hur får vi rätt index att hamna på rätt <li>?
+        if (correctLetters.includes(fetchKey)) {
+            // loop som loopar igenom ordet en gång (för varje gång du gissar rätt)
+            for (let i = 0; i < correctLetters.length; i++) {
 
-                // för varje fel gissad bokstav skapas lika många <li> - "noMatchListEl" i ul('nomatch') - "wrongGuessesElem"
-                var noMatchListEl = document.createElement('li');
-                noMatchListEl.innerHTML = "";
-                wrongGuessesElem.appendChild(noMatchListEl);
-                // noMatchListEl += fetchKey; - behövs?
-                console.log(noMatchListEl);
-
-                //FRÅGA TILL MAJA: Hur får vi en bild att visas per felaktigt tryck. 
-                for (let img = 0; img < imgOpacity.length; img++) {
-                    imgOpacity[0].style.opacity = 1;
+                if (correctLetters[i] === fetchKey) {
+                    //gör om innehållet i HTML-ul (alla li) till en array så att vi kommer åt bokstavens index 
+                    let listElem = document.querySelectorAll("li");
+                    listElem[i].innerHTML = fetchKey;
+                    console.log(fetchKey);
                 }
             }
+            // console.log('WORK');
+        } else {
+            //FRÅGA TILL MAJA: Hur får vi alla index att hamna i "nomatch"?
+            // console.log('NOT WORK');
+            wrongGuessesElem.textContent += fetchKey;
+            console.log(wrongLetterGuess);
+            wrongLetterGuess.push(fetchKey);
+
+            // för varje fel gissad bokstav skapas lika många <li> - "noMatchListEl" i ul('nomatch') - "wrongGuessesElem"
+            // var noMatchListEl = document.createElement('li');
+            // noMatchListEl.innerHTML = "";
+            // wrongGuessesElem.appendChild(noMatchListEl);
+            // noMatchListEl += fetchKey; - behövs?
+            // console.log(noMatchListEl);
+
+            //FRÅGA TILL MAJA: Hur får vi en bild att visas per felaktigt tryck. 
+            //switch för varje del av SVG
+            if (wrongLetterGuess.length === 1) {
+                document.querySelector('figure').classList.add('scaffold')
+            }
+            for (let img = 0; img < imgOpacity.length; img++) {
+                imgOpacity[0].style.opacity = 1;
+            }
         }
+        // }
     });
     //FRÅGA TILL MAJA: Går inte att placera bokstäverna på rätt plats i ordet. Allt hamnar på sista rutan. 
 }

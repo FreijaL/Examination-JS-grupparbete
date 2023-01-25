@@ -21,16 +21,33 @@ main figure {
     padding: 1rem;
 }
 
-main figure svg > * {
+main figure svg>* {
     opacity: 0;
 }
 
-main figure svg #ground             { opacity: 0; }
-main figure.scaffold svg #scaffold  { opacity: 0; }
-main figure.head     svg #head      { opacity: 0; }
-main figure.body     svg #body      { opacity: 0; }
-main figure.arms     svg #arms      { opacity: 0; }
-main figure.legs     svg #legs      { opacity: 0; }
+main figure svg #ground {
+    opacity: 1;
+}
+
+main figure.scaffold svg #scaffold {
+    opacity: 1;
+}
+
+main figure.head svg #head {
+    opacity: 1;
+}
+
+main figure.body svg #body {
+    opacity: 1;
+}
+
+main figure.arms svg #arms {
+    opacity: 1;
+}
+
+main figure.legs svg #legs {
+    opacity: 1;
+}
 
 footer {
     display: flex;
@@ -69,11 +86,11 @@ footer ul.word li {
     align-items: center;
     border-bottom: 2px solid #222;
     margin: 0 .25rem;
-    background: rgba(0,0,0,.1);
+    background: rgba(0, 0, 0, .1);
 }
 
 p {
-    color: rgba(0,0,0,.4);
+    color: rgba(0, 0, 0, .4);
     font-size: 1.2rem;
     margin: 1rem 0;
 }
@@ -82,7 +99,7 @@ section.game-over {
     position: fixed;
     width: 100vw;
     height: 100vh;
-    background: rgba(0,0,0,.9);
+    background: rgba(0, 0, 0, .9);
     z-index: 999;
     color: white;
     flex-direction: column;
@@ -95,18 +112,18 @@ section.game-over.show {
     display: flex;
 }
 
-.game-over > h1 {
+.game-over>h1 {
     font-size: 6rem;
     margin: 0;
 }
 
-.game-over > p {
+.game-over>p {
     font-size: 2rem;
     color: white;
     margin: 0;
 }
 
-.game-over > a {
+.game-over>a {
     background: white;
     color: #222;
     text-decoration: none;
@@ -116,6 +133,6 @@ section.game-over.show {
     opacity: .8;
 }
 
-.game-over > a:hover {
+.game-over>a:hover {
     opacity: 1;
 }
