@@ -50,22 +50,9 @@
 -  lägg till ett felmeddelande (testa ny bokstav)
 
 */
-//FRÅGA TILL MAJA:  SKA VI ANVÄNDA "FIGURE" queryselectior
-let imgGround = document.querySelector('#ground');
-let imgScaffold = document.querySelector('#scaffold');
-let imgHead = document.querySelector('#head');
-let imgBody = document.querySelector('#body');
-let imgArms = document.querySelector('#arms');
-let imgLegs = document.querySelector('#legs');
-
-// lista med variablerna som innehåller id för varje bild som dyker upp per fel gissning
-let imgOpacity = [imgGround, imgScaffold, imgHead, imgBody, imgArms, imgLegs];
-
-// // lista med alla bokstäver som går att gissa på - behöver vi den?
-// let lettersOptions = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "å", "ä", "ö"];
 
 // lista med random ord
-let words = ['adam', 'kamala', 'freija'];
+let words = ['adam', 'kamala', 'freija', 'frontend', ];
 
 // det ordet som slumpas fram läggs i den här variabeln
 let correctWord = [];
@@ -79,9 +66,10 @@ let correctWordElem = document.querySelector('.word');
 // de <li> som skapas i HTML för att visa de ord som användaren gissat fel på
 let wrongGuessesElem = document.querySelector('.nomatch');
 
+let counterElem = document.getElementById('counter');
+let count = 0;
 
-// hjälp
-let correctLetterGuess = [];
+
 // hjälp
 let wrongLetterGuess = [];
 
@@ -93,19 +81,18 @@ function startGame() {
     correctWord.push(words[randomWord]);
 
     correctLetters = correctWord.toString().split('');
-    console.log(correctLetters);
 
     // när vi fått ett random ord ska det skapas lika många <li> i ul('word') som antal bokstäver i ordet
     for (let i = 0; i < correctLetters.length; i++) {
         var wordListEl = document.createElement('li');
         wordListEl.innerHTML = '';
         correctWordElem.appendChild(wordListEl);
-        // console.log(wordListEl);
     };
     //lyssna efter tryck på tangentbordet
     let keyBoard = document.querySelector('body')
     keyBoard.addEventListener('keypress', fetchkey => {
         var fetchKey = fetchkey.key;
+
         // vid tryck - kollar om gissningen (trycket av en bokstav) finns i korrekt ord ("correctLetters")
         if (correctLetters.includes(fetchKey)) {
             // loopar igenom korrekt ord ("correctLetters") en gång för varje rätt gissning
@@ -115,9 +102,14 @@ function startGame() {
                     // om gissningen stämmer läggs bokstaven in i rätt <li>-element
                     let listElem = document.querySelectorAll("li");
                     listElem[i].innerHTML = fetchKey;
-                    console.log(fetchKey);
-                };
+                    // Poängräknare
+                        count += 10;
+                        counterElem.innerHTML = 'Här är dina poäng: ' + count;
+
+                } 
             };
+        } else if (correctLetters.length == correctWord) {
+           console.log('WINNING');
         } else {
             // vid fel gissning läggs den bokstaven in i ett <li>-element i ul class=nomatch
             wrongGuessesElem.textContent += fetchKey;
@@ -135,14 +127,13 @@ function startGame() {
             } else if (wrongLetterGuess.length === 5) {
                 document.querySelector('figure').classList.add('legs')
                 let gameOverElem = document.querySelector('.game-over');
-                gameOverElem.style.display = "block";
+                gameOverElem.style.display = "flex";
                 let gameOverWordElem = document.querySelector('.game-over-word');
                 gameOverWordElem.textContent = correctWord;
             };
         };
     });
 };
-
 
 //Spelets huvudfunktion körs
 startGame();

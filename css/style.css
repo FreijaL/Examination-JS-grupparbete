@@ -93,7 +93,11 @@ p {
     color: rgba(0, 0, 0, .4);
     font-size: 1.2rem;
     margin: 1rem 0;
+    display: flex;
+    justify-content: center;
 }
+
+
 
 section.game-over {
     position: fixed;
@@ -108,8 +112,12 @@ section.game-over {
     display: none;
 }
 
+
+
+
 section.game-over.show {
     display: flex;
+    justify-content: center;
 }
 
 .game-over>h1 {
@@ -120,19 +128,28 @@ section.game-over.show {
 .game-over>p {
     font-size: 2rem;
     color: white;
-    margin: 0;
+    margin-bottom: 3rem;
+    display: flex;
+    justify-content: center;
 }
 
 .game-over>a {
-    background: white;
-    color: #222;
+    background: rgb(19, 160, 19);
+    color: white;
     text-decoration: none;
     padding: 1rem 2rem;
     margin-top: 4rem;
     border-radius: .25rem;
     opacity: .8;
+    font-size: 2rem;
 }
 
 .game-over>a:hover {
     opacity: 1;
+}
+
+
+.game-over-word {
+    color: rgb(172, 16, 16);
+    font-size: 4rem;
 }
