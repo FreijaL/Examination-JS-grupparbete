@@ -59,85 +59,85 @@ let imgBody = document.querySelector('#body');
 let imgArms = document.querySelector('#arms');
 let imgLegs = document.querySelector('#legs');
 
+// lista med variablerna som innehåller id för varje bild som dyker upp per fel gissning
 let imgOpacity = [imgGround, imgScaffold, imgHead, imgBody, imgArms, imgLegs];
 
-let lettersOptions = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "å", "ä", "ö"];
+// // lista med alla bokstäver som går att gissa på - behöver vi den?
+// let lettersOptions = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "å", "ä", "ö"];
+
+// lista med random ord
 let words = ['adam', 'kamala', 'freija'];
-let currentWord = [];
+
+// det ordet som slumpas fram läggs i den här variabeln
+let correctWord = [];
+
+// här splittas ordet i "correctWord" så att varje bokstav ligger i ett element i en array
 let correctLetters = '';
 
-let correctWord = document.querySelector('.word');
-let correctLetterGuess = [];
+// de <li> som skapas i HTML för att visa det ord som användaren gissar på
+let correctWordElem = document.querySelector('.word');
 
-let wrongGuess = document.querySelector('.nomatch');
+// de <li> som skapas i HTML för att visa de ord som användaren gissat fel på
+let wrongGuessesElem = document.querySelector('.nomatch');
+
+
+// hjälp
+let correctLetterGuess = [];
+// hjälp
 let wrongLetterGuess = [];
 
-//skapar en funktion som startar spelet och hämtar ett ord från listan words och lägger den i "currentWord"
 
-
-
+//skapar en funktion som startar spelet och hämtar ett random ord från listan words och lägger den i "correctWord"
 function startGame() {
 
     let randomWord = Math.floor(Math.random() * words.length);
-    currentWord.push(words[randomWord]);
+    correctWord.push(words[randomWord]);
 
-    correctLetters = currentWord.toString().split('');
+    correctLetters = correctWord.toString().split('');
     console.log(correctLetters);
 
-
-    // när vi fått ett random ord ska det skapas li i ul('word')
-    // = antal bokstäver i ordet
-
+    // när vi fått ett random ord ska det skapas lika många <li> i ul('word') som antal bokstäver i ordet
     for (let i = 0; i < correctLetters.length; i++) {
         var wordListEl = document.createElement('li');
         wordListEl.innerHTML = '';
-        correctWord.appendChild(wordListEl);
+        correctWordElem.appendChild(wordListEl);
         console.log(wordListEl);
-
-        var noMatchListEl = document.createElement('li');
-        noMatchListEl.innerHTML = '';
-        wrongGuess.appendChild(noMatchListEl);
-        console.log(noMatchListEl);
     }
 
     //lyssna efter tryck på tangentbordet
     let keyBoard = document.querySelector('body')
     keyBoard.addEventListener('keypress', fetchkey => {
         var fetchKey = fetchkey.key;
-        //- vid tryck - jämför bokstav(tryck) med nuvarande ord "currentWord"
 
-
+        //- vid tryck - jämför bokstav(tryck) med nuvarande ord "correctWord"
         for (let index = 0; index < correctLetters.length; index++) {
             //FRÅGA TILL MAJA: Hur får vi rätt index att hamna på rätt <li>?
-            if (correctLetters.includes(fetchkey.key) === true) {
+            if (correctLetters.includes(fetchKey) === true) {
                 console.log('WORK');
-                wordListEl.innerHTML = fetchkey.key;
+                wordListEl.innerHTML = fetchKey;
             } else {
                 //FRÅGA TILL MAJA: Hur får vi alla index att hamna i "nomatch"?
                 console.log('NOT WORK');
-                wrongGuess.textContent = fetchkey.key;
+                wrongGuessesElem.textContent = fetchKey;
                 console.log(wrongLetterGuess);
+
+                // för varje fel gissad bokstav skapas lika många <li> - "noMatchListEl" i ul('nomatch') - "wrongGuessesElem"
+                var noMatchListEl = document.createElement('li');
+                noMatchListEl.innerHTML = "";
+                wrongGuessesElem.appendChild(noMatchListEl);
+                // noMatchListEl += fetchKey; - behövs?
+                console.log(noMatchListEl);
 
                 //FRÅGA TILL MAJA: Hur får vi en bild att visas per felaktigt tryck. 
                 for (let img = 0; img < imgOpacity.length; img++) {
                     imgOpacity[0].style.opacity = 1;
                 }
-
             }
-
         }
-
     });
-
-    //Går inte att placera bokstäverna på rätt plats i ordet. Allt hamnar på sista rutan. 
-    //console.log(correctLetters.indexOf('m'));
-
+    //FRÅGA TILL MAJA: Går inte att placera bokstäverna på rätt plats i ordet. Allt hamnar på sista rutan. 
 }
-startGame()
-console.log(currentWord);
-
-
-//FRÅGA MAJA: Är det värt att använda denna funktion för att få in bokstaven i arrayen "wrongLetterGuess"
+//FRÅGA TILL MAJA: Är det värt att använda denna funktion för att få in bokstaven i arrayen "wrongLetterGuess"
 ///function newLetter() {
 ///    let letter = fetchKey;
 ///    wrongLetterGuess.push(letter);
@@ -147,9 +147,9 @@ console.log(currentWord);
 ///}
 ///newLetter()
 
-// gör currentWord till sträng så att vi kan leta fram specifik bokstav senare
-// let currentLetters = currentWord.toString();
-// console.log(currentLetters);
 
-
+//Spelets huvudfunktion körs
+startGame()
+//Här testar vi att det funkar...
+console.log(correctWord);
 
