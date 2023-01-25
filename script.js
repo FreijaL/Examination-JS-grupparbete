@@ -101,7 +101,7 @@ function startGame() {
         wordListEl.innerHTML = '';
         correctWordElem.appendChild(wordListEl);
         // console.log(wordListEl);
-    }
+    };
     //lyssna efter tryck på tangentbordet
     let keyBoard = document.querySelector('body')
     keyBoard.addEventListener('keypress', fetchkey => {
@@ -116,8 +116,8 @@ function startGame() {
                     let listElem = document.querySelectorAll("li");
                     listElem[i].innerHTML = fetchKey;
                     console.log(fetchKey);
-                }
-            }
+                };
+            };
         } else {
             // vid fel gissning läggs den bokstaven in i ett <li>-element i ul class=nomatch
             wrongGuessesElem.textContent += fetchKey;
@@ -136,13 +136,14 @@ function startGame() {
                 document.querySelector('figure').classList.add('legs')
                 let gameOverElem = document.querySelector('.game-over');
                 gameOverElem.style.display = "block";
-                console.log("game over");
-            }
-        }
+                let gameOverWordElem = document.querySelector('.game-over-word');
+                gameOverWordElem.textContent = correctWord;
+            };
+        };
     });
-}
+};
 
 
 //Spelets huvudfunktion körs
-startGame()
+startGame();
 
