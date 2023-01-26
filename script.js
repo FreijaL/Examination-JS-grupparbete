@@ -14,11 +14,9 @@
 // 4 - Algorithm design ------- steg för steg instruktioner
 
 
-
-// 1 - lista med alfabetet - "lettersOptions" (ta bort för varje gissningar?)
-//   - lista med rätt gissade bokstäver - "correctLetters"
+// 1 - lista med rätt gissade bokstäver
 //   - lista med fel gissade bokstäver
-//   - lista med random ord - "words"
+//   - lista med random ord
 //   - max antal gissningar
 //   - antal gissningar användaren gjort
 // 2 - vid varje tangenttryck ska en function köras som jämför tryck med if (bokstav)= true else(bokstav) = false
@@ -26,8 +24,8 @@
 //   - vid varje rätt gissning ska bokstav pushas till listan med rätt gissade + bokstav till ordet (på rätt ställe)
 //   - eventListener på tangenterna (alt knappar)
 // 3 - 
-/* 4 -
-- skapar en funktion som startar spelet och hämtar ett ord från listan words och lägger den i "currentWord"
+/* 4 - 
+- skapa en funktion som startar spelet och hämta ett ord från listan "words" och lägg den i "currentWord"
 - lyssna efter tryck på tangentbordet
 - vid tryck - jämför bokstav(tryck) med nuvarande ord "currentWord"
 - if - villkor: vid rätt gissning ska bokstaven ska finnas i currentWord och finnas i alfabetet
@@ -54,7 +52,7 @@
 // lista med random ord
 let words = ['adam', 'kamala', 'freija', 'frontend',];
 
-// det ordet som slumpas fram läggs i den här variabeln
+// det ordet som slumpas fram läggs i denna
 let correctWord = [];
 
 // här splittas ordet i "correctWord" så att varje bokstav ligger i ett element i en array
@@ -66,13 +64,14 @@ let correctWordElem = document.querySelector('.word');
 // de <li> som skapas i HTML ul class=nomatch för att visa de ord som användaren gissat fel på
 let wrongGuessesElem = document.querySelector('.nomatch');
 
+// var i HTML som poängen ska visas
 let counterElem = document.getElementById('counter');
+
+// här sparas spelarens poäng
 let count = 0;
 
-
-// hjälp
+// där alla fel-gissningar sparas
 let wrongLetterGuess = [];
-
 
 //skapar en funktion som startar spelet och hämtar ett random ord från listan "words" och lägger den i "correctWord"
 function startGame() {
@@ -106,9 +105,12 @@ function startGame() {
                     count += 10;
                     counterElem.innerHTML = 'Här är dina poäng: ' + count;
                 }
+                // if (correctLetters.length == correctWord.length) {
+                //     console.log("won");
+                // }
             };
             // ta bort else? koden nedan körs inte?
-        } else if (correctLetters.length == correctWord) {
+        } else if (correctLetters.length == correctWord.toString().length) {
             console.log('WINNING');
             let winningElem = document.querySelector('.winning');
             winningElem.style.display = "flex";
@@ -140,6 +142,21 @@ function startGame() {
     });
 };
 
-//Spelets huvudfunktion körs
+// Spelets huvudfunktion körs
 startGame();
 
+// if (listElem.length == correctLetters.length) {
+//     console.log('WINNER');
+// }
+
+
+// if (ordet är rätt gissat) {
+//     startGame() ska stoppas och 
+//     winning ska visas 
+// }
+
+// if (correctLetters.length == correctWord.toString().length) {
+//     console.log('WINNING');
+// }
+
+// Behöver funktionen avslutas
