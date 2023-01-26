@@ -50,7 +50,7 @@
 */
 
 // lista med random ord
-let words = ['adam', 'kamala', 'freija', 'frontend',];
+let words = ['adam', 'kamala', 'freija', 'frontend', 'backend', 'fullstack', 'computer', 'maja', 'javascript'];
 
 // det ordet som slumpas fram läggs i denna
 let correctWord = [];
@@ -111,7 +111,7 @@ function startGame() {
                         listElem[i].innerHTML = fetchKey;
                         // Poängräknare
                         count += 10;
-                        counterElem.innerHTML = 'Här är dina poäng: ' + count;
+                        counterElem.innerHTML = 'Your amazing score is: ' + count;
                         // varje gång man gissar rätt bokstav ökas med 1
                         correctGuesses++;
 
