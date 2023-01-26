@@ -64,11 +64,14 @@ let correctWordElem = document.querySelector('.word');
 // de <li> som skapas i HTML ul class=nomatch för att visa de ord som användaren gissat fel på
 let wrongGuessesElem = document.querySelector('.nomatch');
 
-// räknar hur många bokstäver som man gissat rätt på ***********
+// räknar hur många bokstäver som man gissat rätt på *******
 let correctGuesses = 0;
 
 // array för att hålla kolla på vilka bokstäver man redan gissat på *******
 let currentCorrectGuesses = [];
+
+// en boolean som avgör om spelet är över - (vunnit/förlorat) ******2
+let gameFinished = false;
 
 // var i HTML som poängen ska visas
 let counterElem = document.getElementById('counter');
@@ -101,7 +104,7 @@ function startGame() {
         // kollar om gissningen finns i arrayn som är rätt gissade *******
         if (!currentCorrectGuesses.toString().includes(fetchKey)) {
             // vid tryck - kollar om gissningen (trycket av en bokstav) finns i korrekt ord ("correctLetters")
-            if (correctLetters.includes(fetchKey)) {
+            if (correctLetters.includes(fetchKey) && gameFinished == false) {
                 // loopar igenom korrekt ord ("correctLetters") en gång för varje rätt gissning
                 for (let i = 0; i < correctLetters.length; i++) {
                     //jämför om gissningen stämmer överens med något av bokstavens index i "correctLetters"
@@ -111,7 +114,7 @@ function startGame() {
                         listElem[i].innerHTML = fetchKey;
                         // Poängräknare
                         count += 10;
-                        counterElem.innerHTML = 'Your amazing score is: ' + count;
+                        counterElem.innerHTML = 'Här är dina poäng: ' + count;
                         // varje gång man gissar rätt bokstav ökas med 1
                         correctGuesses++;
 
@@ -124,9 +127,13 @@ function startGame() {
                         // Denna kod körs när man vunnit ********
                         let winningElem = document.querySelector('.winning');
                         winningElem.style.display = "flex";
+                        // boolean uppdateras när man vunnit ******2
+                        gameFinished = true;
                     }
                 };
-            } else {
+
+                // detta if block förtsätter att köra om spelet INTE är över ******2
+            } else if (gameFinished == false) {
                 // vid fel gissning läggs den bokstaven in i ett <li>-element i ul class=nomatch
                 wrongGuessesElem.textContent += fetchKey;
                 wrongLetterGuess.push(fetchKey);
@@ -146,6 +153,9 @@ function startGame() {
                     gameOverElem.style.display = "flex";
                     let gameOverWordElem = document.querySelector('.word-revealed');
                     gameOverWordElem.textContent = correctWord;
+
+                    // uppdaterar boolean när man har förlorat ******2
+                    gameFinished = true;
                 };
             };
         };
