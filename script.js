@@ -107,8 +107,14 @@ function startGame() {
                     counterElem.innerHTML = 'Här är dina poäng: ' + count;
                 }
             };
+            // ta bort else? koden nedan körs inte?
         } else if (correctLetters.length == correctWord) {
             console.log('WINNING');
+            let winningElem = document.querySelector('.winning');
+            winningElem.style.display = "flex";
+            let winningWordElem = document.querySelector('.word-revealed');
+            winningWordElem.textContent = correctWord;
+
         } else {
             // vid fel gissning läggs den bokstaven in i ett <li>-element i ul class=nomatch
             wrongGuessesElem.textContent += fetchKey;
@@ -127,7 +133,7 @@ function startGame() {
                 document.querySelector('figure').classList.add('legs')
                 let gameOverElem = document.querySelector('.game-over');
                 gameOverElem.style.display = "flex";
-                let gameOverWordElem = document.querySelector('.game-over-word');
+                let gameOverWordElem = document.querySelector('.word-revealed');
                 gameOverWordElem.textContent = correctWord;
             };
         };

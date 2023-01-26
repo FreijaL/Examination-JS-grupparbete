@@ -99,7 +99,8 @@ p {
 
 
 
-section.game-over {
+section.game-over,
+section.winning {
     position: fixed;
     width: 100vw;
     height: 100vh;
@@ -115,17 +116,20 @@ section.game-over {
 
 
 
-section.game-over.show {
+section.game-over.show,
+section.winning.show {
     display: flex;
     justify-content: center;
 }
 
-.game-over>h1 {
+.game-over>h1,
+.winning>h1 {
     font-size: 6rem;
     margin: 0;
 }
 
-.game-over>p {
+.game-over>p,
+.winning>p {
     font-size: 2rem;
     color: white;
     margin-bottom: 3rem;
@@ -133,7 +137,8 @@ section.game-over.show {
     justify-content: center;
 }
 
-.game-over>a {
+.game-over>a,
+.winning>a {
     background: rgb(19, 160, 19);
     color: white;
     text-decoration: none;
@@ -144,12 +149,13 @@ section.game-over.show {
     font-size: 2rem;
 }
 
-.game-over>a:hover {
+.game-over>a:hover,
+.winning>a:hover {
     opacity: 1;
 }
 
 
-.game-over-word {
+.word-revealed {
     color: rgb(172, 16, 16);
     font-size: 4rem;
 }
