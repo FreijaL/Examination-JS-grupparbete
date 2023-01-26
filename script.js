@@ -64,11 +64,14 @@ let correctWordElem = document.querySelector('.word');
 // de <li> som skapas i HTML ul class=nomatch för att visa de ord som användaren gissat fel på
 let wrongGuessesElem = document.querySelector('.nomatch');
 
-// räknar hur många bokstäver som man gissat rätt på ***********
+// räknar hur många bokstäver som man gissat rätt på *******
 let correctGuesses = 0;
 
 // array för att hålla kolla på vilka bokstäver man redan gissat på *******
 let currentCorrectGuesses = [];
+
+// en boolean som avgör om spelet är över - (vunnit/förlorat) ******2
+let gameFinished = false;
 
 // var i HTML som poängen ska visas
 let counterElem = document.getElementById('counter');
@@ -112,7 +115,8 @@ function startGame() {
                         // Poängräknare
                         count += 10;
                         counterElem.innerHTML = 'Här är dina poäng: ' + count;
-                        // varje gång man gissar rätt bokstav ökas med 1
+
+                        // varje gång man gissar rätt bokstav ökar vinsträknaren med 1 ******
                         correctGuesses++;
 
                         //lägger till rättgissade bokstäverna i array *******
@@ -124,9 +128,13 @@ function startGame() {
                         // Denna kod körs när man vunnit ********
                         let winningElem = document.querySelector('.winning');
                         winningElem.style.display = "flex";
+                        // boolean uppdateras när man vunnit ******2
+                        gameFinished = true;
                     }
                 };
-            } else {
+
+                // detta if block förtsätter att köra om spelet INTE är över ******2
+            } else if (gameFinished == false) {
                 // vid fel gissning läggs den bokstaven in i ett <li>-element i ul class=nomatch
                 wrongGuessesElem.textContent += fetchKey;
                 wrongLetterGuess.push(fetchKey);
@@ -146,6 +154,9 @@ function startGame() {
                     gameOverElem.style.display = "flex";
                     let gameOverWordElem = document.querySelector('.word-revealed');
                     gameOverWordElem.textContent = correctWord;
+
+                    // uppdaterar boolean när man har förlorat ******2
+                    gameFinished = true;
                 };
             };
         };
