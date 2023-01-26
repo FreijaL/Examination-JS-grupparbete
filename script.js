@@ -52,7 +52,7 @@
 */
 
 // lista med random ord
-let words = ['adam', 'kamala', 'freija', 'frontend', ];
+let words = ['adam', 'kamala', 'freija', 'frontend',];
 
 // det ordet som slumpas fram läggs i den här variabeln
 let correctWord = [];
@@ -60,10 +60,10 @@ let correctWord = [];
 // här splittas ordet i "correctWord" så att varje bokstav ligger i ett element i en array
 let correctLetters = '';
 
-// de <li> som skapas i HTML för att visa det ord som användaren gissar på
+// de <li> som skapas i HTML ul class=word för att visa det ord som användaren gissar på
 let correctWordElem = document.querySelector('.word');
 
-// de <li> som skapas i HTML för att visa de ord som användaren gissat fel på
+// de <li> som skapas i HTML ul class=nomatch för att visa de ord som användaren gissat fel på
 let wrongGuessesElem = document.querySelector('.nomatch');
 
 let counterElem = document.getElementById('counter');
@@ -74,7 +74,7 @@ let count = 0;
 let wrongLetterGuess = [];
 
 
-//skapar en funktion som startar spelet och hämtar ett random ord från listan words och lägger den i "correctWord"
+//skapar en funktion som startar spelet och hämtar ett random ord från listan "words" och lägger den i "correctWord"
 function startGame() {
 
     let randomWord = Math.floor(Math.random() * words.length);
@@ -103,13 +103,12 @@ function startGame() {
                     let listElem = document.querySelectorAll("li");
                     listElem[i].innerHTML = fetchKey;
                     // Poängräknare
-                        count += 10;
-                        counterElem.innerHTML = 'Här är dina poäng: ' + count;
-
-                } 
+                    count += 10;
+                    counterElem.innerHTML = 'Här är dina poäng: ' + count;
+                }
             };
         } else if (correctLetters.length == correctWord) {
-           console.log('WINNING');
+            console.log('WINNING');
         } else {
             // vid fel gissning läggs den bokstaven in i ett <li>-element i ul class=nomatch
             wrongGuessesElem.textContent += fetchKey;
