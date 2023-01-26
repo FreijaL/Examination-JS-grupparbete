@@ -124,8 +124,6 @@ function startGame() {
                         // Denna kod körs när man vunnit ********
                         let winningElem = document.querySelector('.winning');
                         winningElem.style.display = "flex";
-                        let winningWordElem = document.querySelector('.word-revealed');
-                        winningWordElem.innerHTML = correctWord;
                     }
                 };
             } else {
