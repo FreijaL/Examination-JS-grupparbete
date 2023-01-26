@@ -113,39 +113,22 @@ function startGame() {
                         count += 10;
                         counterElem.innerHTML = 'Här är dina poäng: ' + count;
                         // varje gång man gissar rätt bokstav ökas med 1
-                        // Dock måste ni lösa problemet om man trycker på samma
-                        // bokstav flera gånger! *********
                         correctGuesses++;
 
                         //lägger till rättgissade bokstäverna i array *******
                         currentCorrectGuesses.push(correctLetters[i]);
-
-                        console.log(correctGuesses);
                     }
-                    /* if (correctLetters.length == correctWord.length) {
-                        console.log("won");
-                    } */
 
                     // Kollar om man gissat rätt på alla bokstäver i ordet *******
                     if (correctGuesses === correctLetters.length) {
                         // Denna kod körs när man vunnit ********
-                        console.log('WINNING');
                         let winningElem = document.querySelector('.winning');
                         winningElem.style.display = "flex";
                         let winningWordElem = document.querySelector('.word-revealed');
-                        winningWordElem.textContent = correctWord;
+                        winningWordElem.innerHTML = correctWord;
                     }
                 };
-                // ta bort else? koden nedan körs inte?
-            }
-            /* else if (correctLetters.length == correctWord.toString().length) {
-            console.log('WINNING');
-            let winningElem = document.querySelector('.winning');
-            winningElem.style.display = "flex";
-            let winningWordElem = document.querySelector('.word-revealed');
-            winningWordElem.textContent = correctWord;
-
-        } */ else {
+            } else {
                 // vid fel gissning läggs den bokstaven in i ett <li>-element i ul class=nomatch
                 wrongGuessesElem.textContent += fetchKey;
                 wrongLetterGuess.push(fetchKey);
@@ -173,19 +156,3 @@ function startGame() {
 
 // Spelets huvudfunktion körs
 startGame();
-
-// if (listElem.length == correctLetters.length) {
-//     console.log('WINNER');
-// }
-
-
-// if (ordet är rätt gissat) {
-//     startGame() ska stoppas och 
-//     winning ska visas 
-// }
-
-// if (correctLetters.length == correctWord.toString().length) {
-//     console.log('WINNING');
-// }
-
-// Behöver funktionen avslutas
