@@ -64,6 +64,12 @@ let correctWordElem = document.querySelector('.word');
 // de <li> som skapas i HTML ul class=nomatch för att visa de ord som användaren gissat fel på
 let wrongGuessesElem = document.querySelector('.nomatch');
 
+// räknar hur många bokstäver som man gissat rätt på ***********
+let correctGuesses = 0;
+
+// array för att hålla kolla på vilka bokstäver man redan gissat på *******
+let currentCorrectGuesses = [];
+
 // var i HTML som poängen ska visas
 let counterElem = document.getElementById('counter');
 
@@ -88,55 +94,78 @@ function startGame() {
         correctWordElem.appendChild(wordListEl);
     };
     //lyssna efter tryck på tangentbordet
-    let keyBoard = document.querySelector('body')
+    let keyBoard = document.querySelector('body');
     keyBoard.addEventListener('keypress', fetchkey => {
         var fetchKey = fetchkey.key;
 
-        // vid tryck - kollar om gissningen (trycket av en bokstav) finns i korrekt ord ("correctLetters")
-        if (correctLetters.includes(fetchKey)) {
-            // loopar igenom korrekt ord ("correctLetters") en gång för varje rätt gissning
-            for (let i = 0; i < correctLetters.length; i++) {
-                //jämför om gissningen stämmer överens med något av bokstavens index i "correctLetters"
-                if (correctLetters[i] === fetchKey) {
-                    // om gissningen stämmer läggs bokstaven in i rätt <li>-element
-                    let listElem = document.querySelectorAll("li");
-                    listElem[i].innerHTML = fetchKey;
-                    // Poängräknare
-                    count += 10;
-                    counterElem.innerHTML = 'Här är dina poäng: ' + count;
-                }
-                // if (correctLetters.length == correctWord.length) {
-                //     console.log("won");
-                // }
-            };
-            // ta bort else? koden nedan körs inte?
-        } else if (correctLetters.length == correctWord.toString().length) {
+        // kollar om gissningen finns i arrayn som är rätt gissade *******
+        if (!currentCorrectGuesses.toString().includes(fetchKey)) {
+            // vid tryck - kollar om gissningen (trycket av en bokstav) finns i korrekt ord ("correctLetters")
+            if (correctLetters.includes(fetchKey)) {
+                // loopar igenom korrekt ord ("correctLetters") en gång för varje rätt gissning
+                for (let i = 0; i < correctLetters.length; i++) {
+                    //jämför om gissningen stämmer överens med något av bokstavens index i "correctLetters"
+                    if (correctLetters[i] === fetchKey) {
+                        // om gissningen stämmer läggs bokstaven in i rätt <li>-element
+                        let listElem = document.querySelectorAll("li");
+                        listElem[i].innerHTML = fetchKey;
+                        // Poängräknare
+                        count += 10;
+                        counterElem.innerHTML = 'Här är dina poäng: ' + count;
+                        // varje gång man gissar rätt bokstav ökas med 1
+                        // Dock måste ni lösa problemet om man trycker på samma
+                        // bokstav flera gånger! *********
+                        correctGuesses++;
+
+                        //lägger till rättgissade bokstäverna i array *******
+                        currentCorrectGuesses.push(correctLetters[i]);
+
+                        console.log(correctGuesses);
+                    }
+                    /* if (correctLetters.length == correctWord.length) {
+                        console.log("won");
+                    } */
+
+                    // Kollar om man gissat rätt på alla bokstäver i ordet *******
+                    if (correctGuesses === correctLetters.length) {
+                        // Denna kod körs när man vunnit ********
+                        console.log('WINNING');
+                        let winningElem = document.querySelector('.winning');
+                        winningElem.style.display = "flex";
+                        let winningWordElem = document.querySelector('.word-revealed');
+                        winningWordElem.textContent = correctWord;
+                    }
+                };
+                // ta bort else? koden nedan körs inte?
+            }
+            /* else if (correctLetters.length == correctWord.toString().length) {
             console.log('WINNING');
             let winningElem = document.querySelector('.winning');
             winningElem.style.display = "flex";
             let winningWordElem = document.querySelector('.word-revealed');
             winningWordElem.textContent = correctWord;
 
-        } else {
-            // vid fel gissning läggs den bokstaven in i ett <li>-element i ul class=nomatch
-            wrongGuessesElem.textContent += fetchKey;
-            wrongLetterGuess.push(fetchKey);
+        } */ else {
+                // vid fel gissning läggs den bokstaven in i ett <li>-element i ul class=nomatch
+                wrongGuessesElem.textContent += fetchKey;
+                wrongLetterGuess.push(fetchKey);
 
-            // för varje fel gissning visas en del av gubben och vid den femte fel-gissningen visas section class=game-over
-            if (wrongLetterGuess.length === 1) {
-                document.querySelector('figure').classList.add('scaffold')
-            } else if (wrongLetterGuess.length === 2) {
-                document.querySelector('figure').classList.add('head')
-            } else if (wrongLetterGuess.length === 3) {
-                document.querySelector('figure').classList.add('body')
-            } else if (wrongLetterGuess.length === 4) {
-                document.querySelector('figure').classList.add('arms')
-            } else if (wrongLetterGuess.length === 5) {
-                document.querySelector('figure').classList.add('legs')
-                let gameOverElem = document.querySelector('.game-over');
-                gameOverElem.style.display = "flex";
-                let gameOverWordElem = document.querySelector('.word-revealed');
-                gameOverWordElem.textContent = correctWord;
+                // för varje fel gissning visas en del av gubben och vid den femte fel-gissningen visas section class=game-over
+                if (wrongLetterGuess.length === 1) {
+                    document.querySelector('figure').classList.add('scaffold')
+                } else if (wrongLetterGuess.length === 2) {
+                    document.querySelector('figure').classList.add('head')
+                } else if (wrongLetterGuess.length === 3) {
+                    document.querySelector('figure').classList.add('body')
+                } else if (wrongLetterGuess.length === 4) {
+                    document.querySelector('figure').classList.add('arms')
+                } else if (wrongLetterGuess.length === 5) {
+                    document.querySelector('figure').classList.add('legs')
+                    let gameOverElem = document.querySelector('.game-over');
+                    gameOverElem.style.display = "flex";
+                    let gameOverWordElem = document.querySelector('.word-revealed');
+                    gameOverWordElem.textContent = correctWord;
+                };
             };
         };
     });
