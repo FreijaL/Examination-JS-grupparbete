@@ -104,7 +104,7 @@ function startGame() {
         // kollar om gissningen finns i arrayn som är rätt gissade *******
         if (!currentCorrectGuesses.toString().includes(fetchKey)) {
             // vid tryck - kollar om gissningen (trycket av en bokstav) finns i korrekt ord ("correctLetters")
-            if (correctLetters.includes(fetchKey)) {
+            if (correctLetters.includes(fetchKey) && gameFinished == false) {
                 // loopar igenom korrekt ord ("correctLetters") en gång för varje rätt gissning
                 for (let i = 0; i < correctLetters.length; i++) {
                     //jämför om gissningen stämmer överens med något av bokstavens index i "correctLetters"
